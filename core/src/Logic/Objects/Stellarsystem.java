@@ -2,10 +2,14 @@ package Logic.Objects;
 
 
 
+import Logic.Objects.Fleet;
+import Logic.Objects.Nation;
+import Logic.Objects.Planets;
+
 import java.util.ArrayList;
 
 
-public class System {
+public class Stellarsystem {
 
     private int pixelX;
     private int pixelY;
@@ -14,7 +18,7 @@ public class System {
     private Nation nationality;
 
 
-    public System(int pixelX, int pixelY, Integer amountSystemsPlanets) {
+    public Stellarsystem(int pixelX, int pixelY, Integer amountSystemsPlanets) {
         this.pixelX = pixelX;
         this.pixelY = pixelY;
         for (int i = 0; i < amountSystemsPlanets; i++) {

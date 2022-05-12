@@ -2,8 +2,10 @@ package com.interstellar.client;
 
 import Logic.Objects.GameBoard;
 import Logic.Objects.Nation;
-import Logic.Objects.System;
+import Logic.Objects.Stellarsystem;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -11,9 +13,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.Null;
 import com.badlogic.gdx.utils.ScreenUtils;
 import okhttp3.OkHttpClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Random;
 import java.util.concurrent.Executors;
@@ -22,6 +25,9 @@ import java.util.concurrent.TimeUnit;
 
 public class MainGame extends ApplicationAdapter {
     private Random randomCalls = new Random();
+    private boolean blockInput = false;
+
+    Logger log = LoggerFactory.getLogger(MainGame.class);
 
 
     OkHttpClient client = new OkHttpClient();
@@ -40,7 +46,8 @@ public class MainGame extends ApplicationAdapter {
     private BitmapFont yaoiDisplay;
     private BitmapFont foodDisplay;
     private BitmapFont fleetDisplay;
-
+    private int systemX;
+    private int systemY;
 
     private GameBoard board;
     private Nation playerNation;
@@ -84,11 +91,10 @@ public class MainGame extends ApplicationAdapter {
         };
 
         final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(updateIncomes,0,20,TimeUnit.MILLISECONDS);
+        scheduler.scheduleAtFixedRate(updateIncomes, 0, 20, TimeUnit.MILLISECONDS);
 
 
     }
-
 
 
     //Jeder Frame wird aufgerufen, z.B Spielfeld visuell generieren, Visuelle steuern; Main die immer wieder aufgerufen wird
@@ -105,13 +111,10 @@ public class MainGame extends ApplicationAdapter {
         shapeRenderer.end();
         batch.begin();
         batch.draw(bg, 0, 0);
-
         //Texturenzeichnungen implementieren
         batch.end();
-
         setBase();
-
-
+        stageInput();
         shapeRenderer.end();
 
     }
@@ -131,7 +134,7 @@ public class MainGame extends ApplicationAdapter {
         for (int i = 0; i < 12; i++) {
             for (int j = 0; j < 12; j++) {
                 try {
-                    System boardTile = board.getBoardTile(i, j);
+                    Stellarsystem boardTile = board.getBoardTile(i, j);
                     if (boardTile == null) {
                         continue;
                     }
@@ -142,18 +145,18 @@ public class MainGame extends ApplicationAdapter {
 
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
                     shapeRenderer.setColor(Color.WHITE);
-                    System xAxis = board.getBoardTile(i + 1, j);
+                    Stellarsystem xAxis = board.getBoardTile(i + 1, j);
                     if (xAxis != null) {
                         shapeRenderer.line(boardX + 25, pixelY + 25, xAxis.getPixelX() + 25, xAxis.getPixelY() + 25);
                     }
-                    System yAxis = board.getBoardTile(i, j + 1);
+                    Stellarsystem yAxis = board.getBoardTile(i, j + 1);
                     if (yAxis != null) {
                         shapeRenderer.line(boardX + 25, pixelY + 25, yAxis.getPixelX() + 25, yAxis.getPixelY() + 25);
                     }
                     shapeRenderer.end();
 
                     batch.begin();
-                    batch.draw(systemSkin, boardX, pixelY);
+                    batch.draw(systemSkin, boardX, pixelY, 50, 50);
                     batch.end();
 
                     for (int k = 0; k < boardTile.getPlanetAmount(); k++) {
@@ -168,6 +171,7 @@ public class MainGame extends ApplicationAdapter {
                         shapeRenderer.end();
                     }
                 }
+
             }
         }
         batch.begin();
@@ -175,7 +179,6 @@ public class MainGame extends ApplicationAdapter {
 
         energyDisplay.draw(batch, playerNation.getAmountEnergy() + " / " + playerNation.getIncomeEnergy(), 935, 1055);
         mineralDisplay.draw(batch, playerNation.getAmountMinerals() + " / " + playerNation.getIncomeMinerals(), 1010, 1055);
-        // playerNation.setAmountEnergy(1000);
         foodDisplay.draw(batch, playerNation.getAmountFood() + " / " + playerNation.getIncomeFood(), 1100, 1055);
         alloyDisplay.draw(batch, playerNation.getAmountAlloy() + " / " + playerNation.getIncomeAlloy(), 1180, 1055);
         yaoiDisplay.draw(batch, playerNation.getAmountYaoi() + " / " + playerNation.getIncomeYaoi(), 1255, 1055);
@@ -185,5 +188,38 @@ public class MainGame extends ApplicationAdapter {
 
     }
 
+    private void stageInput() {
+        boolean mousePressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
+        if (mousePressed && !blockInput) {
+            blockInput = true;
+            int inputX = Gdx.input.getX();
+            int inputY = Gdx.input.getY();
+
+            boolean found = false;
+            // System.out.println("X: " + inputX + " Y: " + inputY);
+            for (int i = 0; i < 12; i++) {
+                for (int j = 0; j < 12; j++) {
+                    int minX = 39 + 154 * i;
+                    int minY = 39 + 84 * j;
+                    int maxX = 39 + 154 * (i + 1);
+                    int maxY = 39 + 84 * (j + 1);
+                    //log.info(minX + ">=" + inputX + "<=" + maxX + "\n" + minY + ">=" + inputY + "<=" + maxY);
+                    if (inputX >= minX && inputX <= maxX && inputY >= minY && inputY <= maxY) {
+                        systemX = i;
+                        systemY = j;
+                        log.info("SystemX: " + systemX + "\nSystemy: " + systemY);
+
+                        found = true;
+                        break;
+                    }
+                    if (found) {
+                        break;
+                    }
+                }
+            }
+            blockInput = false;
+        }
+
+    }
 
 }
