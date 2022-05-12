@@ -1,0 +1,9 @@
+{
+com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+	default: {
+		imageUp: Symbol_System_01
+		imageDown: Symbol_System_01
+		imageOver: Symbol_System_02
+	}
+}
+}

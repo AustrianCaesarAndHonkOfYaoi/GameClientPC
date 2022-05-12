@@ -1,0 +1,25 @@
+{
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	default: {
+		up: Honk
+		over: Honk
+		focused: Honk
+		disabled: Honk
+		checked: Honk
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+	default: {
+		imageUp: Honk
+		imageDown: Honk
+		imageOver: Honk
+		imageDisabled: Honk
+		imageChecked: Honk
+		imageCheckedDown: Honk
+		imageCheckedOver: Honk
+		up: Honk
+		down: Honk
+		over: Honk
+	}
+}
+}

@@ -1,0 +1,20 @@
+
+System_Button_Skin.png
+size: 128, 128
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+Symbol_System_01
+  rotate: false
+  xy: 1, 60
+  size: 53, 57
+  orig: 53, 57
+  offset: 0, 0
+  index: -1
+Symbol_System_02
+  rotate: false
+  xy: 1, 1
+  size: 53, 57
+  orig: 53, 57
+  offset: 0, 0
+  index: -1

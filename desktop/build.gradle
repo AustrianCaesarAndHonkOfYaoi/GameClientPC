@@ -1,0 +1,15 @@
+sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.main.resources.srcDirs = ["../core/assets"]
+
+project.ext.mainClassName = "com.interstellar.client.desktop.DesktopLauncher"
+project.ext.assetsDir = new File("../core/assets")
+
+run {
+    main = project.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    workingDir = project.assetsDir
+    ignoreExitValue = true
+}
+
+eclipse.project.name = appName + "-desktop"
