@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import okhttp3.OkHttpClient;
 import org.slf4j.Logger;
@@ -51,7 +52,7 @@ public class MainGame extends ApplicationAdapter {
 
     private GameBoard board;
     private Nation playerNation;
-
+private Stage systemManagement;
     public MainGame() {
     }
 
@@ -79,6 +80,8 @@ public class MainGame extends ApplicationAdapter {
         yaoiDisplay = new BitmapFont();
         foodDisplay = new BitmapFont();
         fleetDisplay = new BitmapFont();
+
+        systemManagement = new Stage();
 
         board.initBoard();
 
@@ -189,6 +192,20 @@ public class MainGame extends ApplicationAdapter {
     }
 
     private void stageInput() {
+        int testX = Gdx.input.getX() / 154;
+        int testY = (Gdx.input.getY() / 84);
+        if (testX > 11) {
+            testX = 11;
+        }
+        if (testY > 11) {
+            testY = 11;
+        }
+
+        shapeRenderer.begin();
+        shapeRenderer.setColor(Color.WHITE);
+        shapeRenderer.rect(154 * testX + 39, (11 - testY) * 84 + 39, 154, 84);
+        shapeRenderer.end();
+
         boolean mousePressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
         if (mousePressed && !blockInput) {
             blockInput = true;
@@ -217,6 +234,7 @@ public class MainGame extends ApplicationAdapter {
                     }
                 }
             }
+           //ToDo Stage
             blockInput = false;
         }
 
