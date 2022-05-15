@@ -21,6 +21,11 @@ public class Nation {
     private int amountYaoi;
     private int fleetCapacity=30;
 
+
+
+
+
+
     private ArrayList<System> nationSystems = new ArrayList<>();
     private ArrayList<Planets> nationPlanets = new ArrayList<>();
     private ArrayList<Fleet> nationFleets = new ArrayList<>();

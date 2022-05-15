@@ -1,7 +1,6 @@
 package Logic.Objects;
 
 
-
 import Logic.Objects.Fleet;
 import Logic.Objects.Nation;
 import Logic.Objects.Planets;
@@ -15,7 +14,7 @@ public class Stellarsystem {
     private int pixelY;
     private ArrayList<Fleet> systemsFleet = new ArrayList<>();
     private ArrayList<Planets> systemsPlanets = new ArrayList<>();
-    private Nation nationality;
+    private String nationality = "Uncolonised";
 
 
     public Stellarsystem(int pixelX, int pixelY, Integer amountSystemsPlanets) {
@@ -37,7 +36,10 @@ public class Stellarsystem {
     public int getPixelY() {
         return pixelY;
     }
-    public int getPlanetAmount(){
-        return systemsPlanets.size();
-    }
+
+    public int getPlanetAmount() {return systemsPlanets.size();}
+
+    public String getNationality() {return nationality;}
+
+    public void setNationality(String nationality) {this.nationality = nationality;}
 }

@@ -3,18 +3,26 @@ package com.interstellar.client;
 import Logic.Objects.GameBoard;
 import Logic.Objects.Nation;
 import Logic.Objects.Stellarsystem;
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import Logic.UI.InterstellarInputProcessor;
+import Logic.UI.SystemTerminal;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import okhttp3.OkHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,37 +38,52 @@ public class MainGame extends ApplicationAdapter {
 
     Logger log = LoggerFactory.getLogger(MainGame.class);
 
-
+    //ToDo Renderers
     OkHttpClient client = new OkHttpClient();
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private AssetManager assetManager;
-
     private ShapeRenderer shapeRenderer;
+private InputMultiplexer multiplexer;
+
+    //ToDo Texturen
     private Texture bg;
     private Texture systemSkin;
     private Texture incomeDisplay;
+    private Texture test;
 
+    //ToDO Bitmaps
     private BitmapFont energyDisplay;
     private BitmapFont mineralDisplay;
     private BitmapFont alloyDisplay;
     private BitmapFont yaoiDisplay;
     private BitmapFont foodDisplay;
     private BitmapFont fleetDisplay;
-    private int systemX;
-    private int systemY;
+    private BitmapFont systemNationality;
+    //TODo Coords
+    private int systemX ;
+    private int systemY ;
 
+    private int chooseLimit;
+    //Todo Game objekte
     private GameBoard board;
     private Nation playerNation;
-private Stage systemManagement;
+    private Table terminal;
+
+
+    //Todo Stages
+    private Stage systemManagement;
+    private boolean terminalActivation = false;
+
     public MainGame() {
     }
 
     //Texturen laden, Vorbereiten zum Rendern, Sounds, bearbeiten der Musiklautstärke
+    //ToDO Create
     @Override
     public void create() {
         //Initializing
-
+chooseLimit =11;
         assetManager = new AssetManager();
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
@@ -70,9 +93,15 @@ private Stage systemManagement;
         board = new GameBoard();
         playerNation = new Nation();
 
+
+        //TOdo Assets laden
+        assetManager.load("Colonize.json", Skin.class);
+        assetManager.finishLoading();
+
         bg = new Texture("bg.jpg");
         systemSkin = new Texture("Symbol_System_01.png");
         incomeDisplay = new Texture("Entwurf02_Incomes.png");
+        test = new Texture("Honk.png");
 
         energyDisplay = new BitmapFont();
         mineralDisplay = new BitmapFont();
@@ -80,11 +109,20 @@ private Stage systemManagement;
         yaoiDisplay = new BitmapFont();
         foodDisplay = new BitmapFont();
         fleetDisplay = new BitmapFont();
+        systemNationality = new BitmapFont();
 
-        systemManagement = new Stage();
+        systemManagement = new Stage(new ExtendViewport(1920, 1080, 1920, 1080));
+     //  Gdx.input.setInputProcessor(systemManagement);
 
+        multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(systemManagement);
+        Gdx.input.setInputProcessor(multiplexer);
+
+        terminal = new Table();
         board.initBoard();
+        createTerminal();
 
+        systemManagement.draw();
         Runnable updateIncomes = () -> {
             playerNation.setAmountEnergy(playerNation.getIncomeEnergy());
             playerNation.setAmountAlloy(playerNation.getIncomeAlloy());
@@ -100,7 +138,7 @@ private Stage systemManagement;
     }
 
 
-    //Jeder Frame wird aufgerufen, z.B Spielfeld visuell generieren, Visuelle steuern; Main die immer wieder aufgerufen wird
+    //Todo Render
     @Override
     public void render() {
         ScreenUtils.clear(1, 1, 1, 1);
@@ -119,7 +157,14 @@ private Stage systemManagement;
         setBase();
         stageInput();
         shapeRenderer.end();
-
+        if (terminalActivation) {
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.rect(1620,0,308,1040);
+            shapeRenderer.end();
+            chooseLimit = 9;
+            systemManagement.draw();
+        }
     }
 
     //Entladen
@@ -192,22 +237,22 @@ private Stage systemManagement;
     }
 
     private void stageInput() {
-        int testX = Gdx.input.getX() / 154;
-        int testY = (Gdx.input.getY() / 84);
-        if (testX > 11) {
-            testX = 11;
-        }
-        if (testY > 11) {
-            testY = 11;
-        }
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+            int testX = Gdx.input.getX() / 154;
+            int testY = (Gdx.input.getY() / 84);
+            if (testX > chooseLimit) {
+                testX = chooseLimit;
+            }
+            if (testY > 11) {
+                testY = 11;
+            }
 
-        shapeRenderer.begin();
-        shapeRenderer.setColor(Color.WHITE);
-        shapeRenderer.rect(154 * testX + 39, (11 - testY) * 84 + 39, 154, 84);
-        shapeRenderer.end();
+            shapeRenderer.begin();
+            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.rect(154 * testX + 39, (11 - testY) * 84 + 39, 154, 84);
+            shapeRenderer.end();
 
-        boolean mousePressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
-        if (mousePressed && !blockInput) {
+
             blockInput = true;
             int inputX = Gdx.input.getX();
             int inputY = Gdx.input.getY();
@@ -230,14 +275,49 @@ private Stage systemManagement;
                         break;
                     }
                     if (found) {
+                        terminalActivation = true;
                         break;
                     }
                 }
             }
-           //ToDo Stage
-            blockInput = false;
+            // systemManagement.draw();
         }
+        //ToDo Stage
+        blockInput = false;
+
+
+    }
+
+    public void createTerminal() {
+
+        terminal.setFillParent(true);
+        terminal.setDebug(true, true);
+        Skin systemColonisation = assetManager.get("Colonize.json", Skin.class);
+        ImageButton button = new ImageButton(systemColonisation);
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+            terminalActivation = false;
+            }
+        });
+
+
+        ImageButton button1 = new ImageButton(systemColonisation);
+        terminal.moveBy(549, 475);
+
+        String t = board.getBoardTile(0, 0).getNationality();
+
+
+        terminal.add(button);
+        terminal.row();
+        terminal.add(button1);
+
+        systemManagement.addActor(terminal);
+        // setTableVisible(false);
+
 
     }
 
 }
+
+

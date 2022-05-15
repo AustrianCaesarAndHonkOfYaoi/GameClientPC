@@ -1,0 +1,16 @@
+{
+"com.badlogic.gdx.graphics.Color": {
+	"RoyalBlue": {
+		"r": 0.25490198,
+		"g": 0.4117647,
+		"b": 0.88235295,
+		"a": 1
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
+	"default": {
+		"font": "test1",
+		"fontColor": "RoyalBlue"
+	}
+}
+}
