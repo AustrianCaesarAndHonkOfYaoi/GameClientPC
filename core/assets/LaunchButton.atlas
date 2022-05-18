@@ -1,0 +1,20 @@
+
+LaunchButton.png
+size: 256, 256
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+Launch_Button_01
+  rotate: false
+  xy: 1, 110
+  size: 101, 107
+  orig: 101, 107
+  offset: 0, 0
+  index: -1
+Launch_Button_02
+  rotate: false
+  xy: 1, 1
+  size: 101, 107
+  orig: 101, 107
+  offset: 0, 0
+  index: -1

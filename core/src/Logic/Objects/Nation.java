@@ -1,43 +1,40 @@
 package Logic.Objects;
 
 
-
 import java.util.ArrayList;
 
 
 public class Nation {
-    private String Name;
+    private String name = "Test";
     private String species;
-    private int incomeEnergy=12;
-    private int incomeFood=12;
-    private int incomeMinerals=12;
-    private int incomeAlloy=12;
-    private int incomeYaoi=12;
+    private int incomeEnergy = 12;
+    private int incomeFood = 12;
+    private int incomeMinerals = 12;
+    private int incomeAlloy = 12;
+    private int incomeYaoi = 12;
 
     private int amountEnergy;
     private int amountFood;
     private int amountMinerals;
     private int amountAlloy;
     private int amountYaoi;
-    private int fleetCapacity=30;
-
-
-
-
+    private int fleetCapacity = 30;
 
 
     private ArrayList<System> nationSystems = new ArrayList<>();
     private ArrayList<Planets> nationPlanets = new ArrayList<>();
     private ArrayList<Fleet> nationFleets = new ArrayList<>();
-public int getUsedFleetSpace(){
-    int usedSpace = 0;
-    for (int i = 0; i < nationFleets.size(); i++) {
-        for (int j = 0; j < nationFleets.get(i).getShipsInFleet().size(); j++) {
-            usedSpace += nationFleets.get(i).getShipsInFleet().get(j).getFleetSpace();
+
+    public int getUsedFleetSpace() {
+        int usedSpace = 0;
+        for (int i = 0; i < nationFleets.size(); i++) {
+            for (int j = 0; j < nationFleets.get(i).getShipsInFleet().size(); j++) {
+                usedSpace += nationFleets.get(i).getShipsInFleet().get(j).getFleetSpace();
+            }
         }
+        return usedSpace;
     }
-    return usedSpace;
-}
+
     public int getIncomeEnergy() {
         return incomeEnergy;
     }
@@ -124,5 +121,17 @@ public int getUsedFleetSpace(){
 
     public void setFleetCapacity(int fleetCapacity) {
         this.fleetCapacity += fleetCapacity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void addPlanet(Planets p) {
+        nationPlanets.add(p);
+    }
+
+    public ArrayList<Planets> getNationPlanets() {
+        return nationPlanets;
     }
 }

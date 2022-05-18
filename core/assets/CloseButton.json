@@ -1,0 +1,9 @@
+{
+"com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
+	"default": {
+		"imageUp": "Close_Button_01",
+		"imageDown": "Close_Button_02",
+		"imageOver": "Close_Button_02"
+	}
+}
+}

@@ -19,7 +19,7 @@ public class DesktopLauncher {
         config.x = 0;
         config.resizable = false;
         config.title = "Interstellar";
-        config.addIcon("E:\\OnePics\\Interstellar\\InterstellarAssets\\Icon.jpg", Files.FileType.Absolute);
+        config.addIcon("Icon.jpg", Files.FileType.Internal);
 
 
         new LwjglApplication(new MainGame(), config);

@@ -5,6 +5,6 @@ import Logic.Objects.Buildings;
 public class AgrarDistrict extends Buildings {
 
     public AgrarDistrict() {
-        super(-7, 0, 0, 0, 30, 300, 120, 0);
+        super(-7, 0, 0, 0, 30 , 0);
     }
 }

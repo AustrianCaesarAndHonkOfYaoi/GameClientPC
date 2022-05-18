@@ -1,0 +1,13 @@
+
+Halogen.png
+size: 512, 512
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+Halogen
+  rotate: false
+  xy: 1, 443
+  size: 505, 61
+  orig: 505, 61
+  offset: 0, 0
+  index: -1

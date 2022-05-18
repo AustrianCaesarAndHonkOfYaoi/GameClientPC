@@ -1,0 +1,9 @@
+{
+"com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
+	"default": {
+		"imageUp": "Launch_Button_01",
+		"imageDown": "Launch_Button_02",
+		"imageOver": "Launch_Button_02"
+	}
+}
+}
