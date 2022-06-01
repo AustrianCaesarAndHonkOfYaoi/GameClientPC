@@ -5,6 +5,6 @@ import Logic.Objects.Ships;
 
 public class Carrier extends Ships {
     public Carrier() {
-        super(1200, 1224, 80,60);
+        super(12000, 1224, 80,60);
     }
 }

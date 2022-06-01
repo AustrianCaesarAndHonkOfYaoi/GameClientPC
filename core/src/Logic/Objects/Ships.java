@@ -16,4 +16,6 @@ public class Ships {
         this.constructionTime = constructionTime;
     }
     public int getFleetSpace(){return fleetSpace;}
+    public int getCost(){return cost;}
+    public int getFirepower(){return firepower;}
 }
