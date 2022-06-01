@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 
 public class Nation {
-    private String name = "Test";
-    private String species;
+    private String name = "Honk";
+
     private int incomeEnergy = 12;
     private int incomeFood = 12;
     private int incomeMinerals = 12;
@@ -21,7 +21,7 @@ public class Nation {
     private int fleetCapacity = 30;
 
 
-    private ArrayList<System> nationSystems = new ArrayList<>();
+
     private ArrayList<Planets> nationPlanets = new ArrayList<>();
     private ArrayList<Fleet> nationFleets = new ArrayList<>();
 
@@ -133,5 +133,13 @@ public class Nation {
 
     public ArrayList<Planets> getNationPlanets() {
         return nationPlanets;
+    }
+
+    public void addNationFleets(Fleet fleet) {
+    nationFleets.add(fleet);
+    }
+
+    public ArrayList<Fleet> getFleet() {
+        return nationFleets;
     }
 }

@@ -1,0 +1,76 @@
+
+Corvette.png
+size: 512, 512
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+Carrier01
+  rotate: false
+  xy: 1, 430
+  size: 151, 26
+  orig: 151, 26
+  offset: 0, 0
+  index: -1
+Carrier02
+  rotate: false
+  xy: 1, 402
+  size: 151, 26
+  orig: 151, 26
+  offset: 0, 0
+  index: -1
+Corvette01
+  rotate: false
+  xy: 154, 430
+  size: 151, 26
+  orig: 151, 26
+  offset: 0, 0
+  index: -1
+Corvette02
+  rotate: false
+  xy: 1, 374
+  size: 151, 26
+  orig: 151, 26
+  offset: 0, 0
+  index: -1
+Cruiser01
+  rotate: false
+  xy: 154, 402
+  size: 151, 26
+  orig: 151, 26
+  offset: 0, 0
+  index: -1
+Cruiser02
+  rotate: false
+  xy: 307, 430
+  size: 151, 26
+  orig: 151, 26
+  offset: 0, 0
+  index: -1
+Destroyer01
+  rotate: false
+  xy: 1, 346
+  size: 151, 26
+  orig: 151, 26
+  offset: 0, 0
+  index: -1
+Destroyer02
+  rotate: false
+  xy: 154, 374
+  size: 151, 26
+  orig: 151, 26
+  offset: 0, 0
+  index: -1
+Titan01
+  rotate: false
+  xy: 307, 402
+  size: 151, 26
+  orig: 151, 26
+  offset: 0, 0
+  index: -1
+Titan02
+  rotate: false
+  xy: 1, 318
+  size: 151, 26
+  orig: 151, 26
+  offset: 0, 0
+  index: -1

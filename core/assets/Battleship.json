@@ -1,0 +1,9 @@
+{
+"com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
+	"default": {
+		"imageUp": "Battleship01",
+		"imageDown": "Battleship02",
+		"imageOver": "Battleship02"
+	}
+}
+}

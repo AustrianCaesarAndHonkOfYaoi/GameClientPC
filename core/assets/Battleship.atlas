@@ -1,0 +1,20 @@
+
+Battleship.png
+size: 256, 256
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+Battleship01
+  rotate: false
+  xy: 1, 124
+  size: 151, 26
+  orig: 151, 26
+  offset: 0, 0
+  index: -1
+Battleship02
+  rotate: false
+  xy: 1, 96
+  size: 151, 26
+  orig: 151, 26
+  offset: 0, 0
+  index: -1
